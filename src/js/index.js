@@ -995,3 +995,22 @@ window.addEventListener("keydown", (event) => {
         }
     }
 });
+
+function showLog(message) {
+    const logDiv = document.createElement("div");
+    logDiv.style.position = "fixed";
+    logDiv.style.bottom = "0";
+    logDiv.style.left = "0";
+    logDiv.style.backgroundColor = "rgba(0,0,0,0.7)";
+    logDiv.style.color = "white";
+    logDiv.style.padding = "5px";
+    logDiv.style.zIndex = "9999";
+    logDiv.textContent = message;
+    document.body.appendChild(logDiv);
+
+    setTimeout(() => {
+        document.body.removeChild(logDiv);
+    }, 3000);
+}
+
+showLog("Touch Move Value: " + e.touches[0].clientY);
