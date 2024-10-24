@@ -349,7 +349,7 @@ let startTouch = 0
 gltfLoader.load(
     "/models/Rock/scene.gltf",
     (gltf) => {
-        gltf.scene.scale.set(0.01, 0.01, 0.01)
+        gltf.scene.scale.set(0.008, 0.008, 0.008)
         gltf.scene.position.y = initialPositionMeshY - 1.73
         gltf.scene.rotation.y = initialRotationMeshY
 
@@ -366,24 +366,40 @@ gltfLoader.load(
         })
 
         // Event Animation
-        if("ontouchstart" in window) {
-
+        if ("ontouchstart" in window) {
             window.addEventListener('touchstart', (e) => {
-                startTouch = e.touches[0].clientY
-            }, false)
+                startTouch = e.touches[0].clientY; // 記錄初始觸控位置（垂直方向）
+                startTouchX = e.touches[0].clientX; // 記錄初始觸控位置（水平方向）
+            }, false);
 
             window.addEventListener('touchmove', (e) => {
-                // animationScroll(e)
-                if (e.touches[0].clientY < startTouch) {
-                    startTouch = e.touches[0].clientY
-                    animationScroll(e, true, startTouch, "up")
-                } else {
-                    startTouch = e.touches[0].clientY
-                    animationScroll(e, true, startTouch, "down")
-                }
-            }, false)
+                const currentTouchY = e.touches[0].clientY;
+                const currentTouchX = e.touches[0].clientX;
 
-         } else window.addEventListener("wheel", (e) => animationScroll(e), false)
+                let touchDeltaY = startTouch - currentTouchY; // 計算垂直方向移動差值
+                let touchDeltaX = startTouchX - currentTouchX; // 計算水平方向移動差值
+                startTouch = currentTouchY; // 更新起始點位置（垂直）
+                startTouchX = currentTouchX; // 更新起始點位置（水平方向）
+
+                // 調整觸控差值縮放因子
+                const scaledDeltaY = touchDeltaY * 0.1;
+                let scaledDeltaX = touchDeltaX * 0.3; // 增大左右滑動效果，統一增大滾動距離
+
+                // 處理垂直方向的滾動
+                if (touchDeltaY > 0) {
+                    animationScroll(e, true, scaledDeltaY, "up");  // 向上滾動
+                } else {
+                    animationScroll(e, true, scaledDeltaY, "down"); // 向下滾動
+                }
+
+                // 增加左右滑動的滾動幅度
+                if (touchDeltaX !== 0) {
+                    animationScroll(e, true, scaledDeltaX, touchDeltaX < 0 ? "right" : "left");
+                }
+            }, false);
+        } else {
+            window.addEventListener("wheel", (e) => animationScroll(e), false);
+        }
     },
     undefined,
     (err) => {
@@ -996,21 +1012,3 @@ window.addEventListener("keydown", (event) => {
     }
 });
 
-function showLog(message) {
-    const logDiv = document.createElement("div");
-    logDiv.style.position = "fixed";
-    logDiv.style.bottom = "0";
-    logDiv.style.left = "0";
-    logDiv.style.backgroundColor = "rgba(0,0,0,0.7)";
-    logDiv.style.color = "white";
-    logDiv.style.padding = "5px";
-    logDiv.style.zIndex = "9999";
-    logDiv.textContent = message;
-    document.body.appendChild(logDiv);
-
-    setTimeout(() => {
-        document.body.removeChild(logDiv);
-    }, 3000);
-}
-
-showLog("Touch Move Value: " + e.touches[0].clientY);
