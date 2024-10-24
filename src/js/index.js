@@ -656,6 +656,7 @@ function addCards() {
         <div class="page-event">
             <div class="cover">
                 <div class="heading">植皆交易</div>
+                <div class="event-page__title"> Green Bay <a class="web-title" href="https://greenbay.tw/", target="blank">(前往網站)</a></div>
                  <a id="image-01" class="logo-image">
                     <img src="/pdfs/green-bay-ppt-01.jpg">
                 </a>
@@ -712,10 +713,7 @@ function addCards() {
         <div class="container">
             <div class="header-image"></div>
         </div>
-        <div class="event-page">
-            <div class="event-page__title"> Green Bay <a class="web-title" href="https://greenbay.tw/", target="blank">(前往網站)</a></div>
-            
-        </div>
+
         <ul class="event-page__nav">
         <li><a href="#overview" title="Overview"><i class="fal fa-ellipsis-h-alt"></i></a></li>
         <li><a href="#schedule" title="Schedule"><i class="fal fa-list"></i></a></li>
