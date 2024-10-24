@@ -730,23 +730,48 @@ function addCards() {
     // Add the dynamic CSS
     const style = document.createElement('style');
     style.id = 'dynamic-style'; // Add an ID for later removal
-    style.innerHTML = `
-        .player {
-            overflow-y: scroll !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-        }
 
-        .player-source {
-            position: relative !important;
-            top: 80px !important;
-            left: auto !important;
-            right: auto !important;
-            transform: none !important;
-            min-height: 700px !important;
-        }
-    `;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+        // Mobile-specific CSS without min-height
+        style.innerHTML = `
+            .player {
+                overflow-y: scroll !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+    
+            .player-source {
+                position: relative !important;
+                top: 80px !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+                min-height: 260px !important;
+            }
+        `;
+    } else {
+        // Default CSS with min-height
+        style.innerHTML = `
+            .player {
+                overflow-y: scroll !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+    
+            .player-source {
+                position: relative !important;
+                top: 80px !important;
+                left: auto !important;
+                right: auto !important;
+                transform: none !important;
+                min-height: 700px !important;
+            }
+        `;
+    }
     document.head.appendChild(style); // Append the CSS to the document
 }
 
