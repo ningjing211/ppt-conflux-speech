@@ -350,7 +350,7 @@ gltfLoader.load(
     "/models/Rock/scene.gltf",
     (gltf) => {
         gltf.scene.scale.set(0.008, 0.008, 0.008)
-        gltf.scene.position.y = initialPositionMeshY - 1.73
+        gltf.scene.position.y = initialPositionMeshY 
         gltf.scene.rotation.y = initialRotationMeshY
 
         scene.add(gltf.scene)
@@ -364,6 +364,10 @@ gltfLoader.load(
                 child.material.needsUpdate = true
             }
         })
+
+        // Event Animation
+        let startTouch = 0;
+        let startTouchX = 0;
 
         // Event Animation
         if ("ontouchstart" in window) {
