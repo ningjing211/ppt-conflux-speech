@@ -710,9 +710,7 @@ function addCards() {
                 </a>
             </div>
             </div>
-        <div class="container">
-            <div class="header-image"></div>
-        </div>
+ 
 
         <ul class="event-page__nav">
         <li><a href="#overview" title="Overview"><i class="fal fa-ellipsis-h-alt"></i></a></li>
